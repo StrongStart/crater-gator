@@ -35,23 +35,3 @@ export class ListPage {
     })
   }
 }
-
-// platform.ready().then(() => {
-  // nativeAudio.preloadSimple(
-    //   'beep', '../assets/sounds/beep15.mp3')
-    //   .then(onSuccess => this.progress = onSuccess,
-    //     onError => this.progress = onError)
-    // })
-    // const makeSound = () => {
-      //   nativeAudio.play('beep')
-      //     .then(onSuccess => this.progress = onSuccess,
-      //     onError => this.progress = onError)
-      // }
-      // getPotholes(): void {
-        //   this.requestService.getPotholes()
-        //   .then(values => this.holes = values)
-        // }
-        
-        // import { NativeAudio } from '@ionic-native/native-audio';
-        // import { Geolocation } from '@ionic-native/geolocation';
-        // import { FormsModule }   from '@angular/forms';

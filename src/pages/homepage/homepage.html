@@ -14,16 +14,13 @@
   <input [(ngModel)]="limit" placeholder="new limit">
   <div>JoltSize is : {{joltSize}}</div>
   <input [(ngModel)]="joltSize" placeholder="new joltSize">
-  <ion-list inset> Shake Readings
-      <ion-item *ngFor="let acc of accels"> {{ acc }} </ion-item>
-      <div>total of last saved shake is {{total}}</div>
+  <ion-list inset> Last saved impact
+      <!-- <ion-item *ngFor="let acc of accels"> {{ acc }} </ion-item> -->
+      <div>G force was {{total}}</div>
   </ion-list>
-  <button danger (click)="saveImpact(100)">Save Another</button>
+  <button danger (click)="saveImpact(100)">Save Another/playsound</button>
   <button danger (click)="getPotholes()">Get Potholes</button>
-  <ion-list inset> My Potholes
+  <!-- <ion-list inset> My Potholes
     <ion-item *ngFor="let hole of holes"> {{ hole.name+' '+hole.lat}} </ion-item>
-  </ion-list>
-  <ion-list inset> Lat long and speed
-    <ion-item *ngFor="let cord of coord"> {{ cord }} </ion-item>
-</ion-list>
+  </ion-list> -->
 </ion-content>

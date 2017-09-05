@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, /*NavController,  NavParams,*/ Platform } from 'ionic-angular';
 import { DeviceMotion } from '@ionic-native/device-motion';
-import { Geolocation } from '@ionic-native/geolocation';
 import { RequestService } from '../../app/request.service'
+import { SmartAudio } from '../../providers/smart-audio/smart-audio'
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 @IonicPage()
 @Component({
@@ -12,38 +13,35 @@ import { RequestService } from '../../app/request.service'
 export class Homepage {
   private moveCounter:number = 0;
   accels: Array<number>
-  limit:number;
-  joltSize:number = 3;
+  limit:number= 3
+  joltSize:number = 10;
   trigger:String = 'none'
   coord: Array<number> = [0, 0, 0]
-  total: Number = 0
+  total: number = 0
   holes: any = [1,1,1]
 
   constructor(
-  private navController:NavController,
+  private tts: TextToSpeech,
   platform:Platform,
   private deviceMotion:DeviceMotion,
   private requestService: RequestService,
-  private geolocation: Geolocation) {
+  public smartAudio:SmartAudio) {
     this.getPotholes()
-    this.limit = 2;
     platform.ready().then(() => {
-      this.outside()
+      smartAudio.preload('sound', 'assets/sounds/beep15.mp3')
       if (platform.is('cordova') === true) {
         this.check()
       }
     })
   }
-  outside() {
-    let watch = this.geolocation.watchPosition()
-    watch.subscribe((data) => {
-      this.coord[0] = data.coords.latitude
-      this.coord[1] = data.coords.longitude
-      this.coord[2] = data.coords.speed || -10
-    })
-  }
   count = 0
-  saveImpact(force:Number) {
+  saveImpact(force:number) {
+    // this.smartAudio.play('sound');
+    let rounded = Math.floor(force)
+    console.log(rounded, 'is rounded')
+    this.tts.speak(`That impact was ${rounded} gees`)
+    
+    console.log('played')
     let lat = 29.927594 + Math.random() * .08865
     let long = -90.132690 + Math.random() * .196903
     this.requestService.createPothole({
@@ -96,16 +94,15 @@ export class Homepage {
           deltaX = Math.abs(acc.x-lastX);
           deltaY = Math.abs(acc.y-lastY);
           deltaZ = Math.abs(acc.z-lastZ);
-          this.accels = [deltaX, deltaY, deltaZ];
           if(deltaX + deltaY + deltaZ > this.joltSize) {
-            this.total = deltaX + deltaY + deltaZ
+            console.log(this.total)
             this.moveCounter++;
           } else {
             this.moveCounter = Math.max(0, --this.moveCounter);
           }
           if(this.moveCounter > this.limit) {
+            this.total = deltaX + deltaY + deltaZ
             this.saveImpact(this.total)
-            // this.saveTrigger();
             this.moveCounter=0;
           }
           lastX = acc.x;

@@ -8,6 +8,7 @@ import { MapPage } from '../pages/map/map';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Events } from 'ionic-angular';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class MyApp {
   pages: Array<{title: string, component: any}>;
 
   constructor(
+    public events: Events,
     public platform: Platform,
     public menu: MenuController,
     public statusBar: StatusBar,
@@ -35,7 +37,13 @@ export class MyApp {
       { title: 'Pothole Map', component: MapPage }
     ];
   }
+  menuClosed() {
+    this.events.publish('menu:closed', '');
+}
 
+menuOpened() {
+    this.events.publish('menu:opened', '');
+}
   initializeApp() {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
