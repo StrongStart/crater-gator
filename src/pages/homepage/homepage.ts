@@ -163,6 +163,9 @@ export class Homepage {
   speak(ar) {
     let roundedInGs = ar.map(n => Math.floor(n/9.8))
     let str = roundedInGs.reduce((a, c) => `${a} ${c.toString()} gees,`, '')
-    this.tts.speak(`That impact was ${str}`)
+    this.tts.speak({
+      text: `That impact was ${str}`,
+      locale: 'en-GB'
+    })
   }
 }
