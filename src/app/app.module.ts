@@ -7,6 +7,7 @@ import { MyApp } from './app.component';
 import { Homepage } from '../pages/homepage/homepage';
 import { ListPage } from '../pages/list/list';
 import { MapPage } from '../pages/map/map';
+import { LoginPage } from '../pages/login/login';
 import { GoogleMaps } from '@ionic-native/google-maps';
 
 
@@ -20,38 +21,42 @@ import { HttpModule } from '@angular/http'
 import { RequestService } from './request.service'
 import { SmartAudio } from '../providers/smart-audio/smart-audio'
 import { TextToSpeech } from '@ionic-native/text-to-speech'
+import { Facebook } from '@ionic-native/facebook';
 
 @NgModule({
   declarations: [
-    MyApp,
     Homepage,
+    ListPage,
+    LoginPage,
     MapPage,
-    ListPage
+    MyApp
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
     FormsModule,
-    HttpModule
+    HttpModule,
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
     Homepage,
+    ListPage,
+    LoginPage,
     MapPage,
-    ListPage
+    MyApp
   ],
   providers: [
+    DeviceMotion,
+    Facebook,
+    Geolocation,
+    GoogleMaps,
     NativeAudio,
     TextToSpeech,
-    DeviceMotion,
     RequestService,
-    Geolocation,
-    StatusBar,
-    GoogleMaps,
+    SmartAudio,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    SmartAudio
+    StatusBar,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
 export class AppModule {}

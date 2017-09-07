@@ -165,7 +165,7 @@ export class Homepage {
     let str = roundedInGs.reduce((a, c) => `${a} ${c.toString()} gees,`, '')
     this.tts.speak({
       text: `That impact was ${str}`,
-      locale: 'en-GB'
+      locale: 'en-AU'
     })
   }
 }
