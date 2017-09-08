@@ -6,6 +6,7 @@ import { ListPage } from '../pages/list/list';
 import { Homepage } from '../pages/homepage/homepage';
 import { MapPage } from '../pages/map/map';
 import { LoginPage } from '../pages/login/login';
+import { DashPage } from '../pages/dash/dash';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -19,7 +20,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // make HelloIonicPage the root (or first) page
-  rootPage = MapPage;
+  rootPage = LoginPage;
   pages: Array<{title: string, component: any}>;
 
   constructor(
@@ -33,9 +34,10 @@ export class MyApp {
 
     // set our app's pages
     this.pages = [
-      { title: 'Dashboard', component: Homepage },
+      { title: 'Test Page', component: Homepage },
       { title: 'Greatest Hits', component: ListPage },
-      { title: 'Pothole Map', component: MapPage }
+      { title: 'Pothole Map', component: MapPage },
+      { title: 'Dashboard', component: DashPage},
     ];
   }
   menuClosed() {

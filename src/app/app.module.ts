@@ -4,16 +4,16 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { FormsModule }   from '@angular/forms';
 import { MyApp } from './app.component';
 
+import { DashPage } from '../pages/dash/dash';
 import { Homepage } from '../pages/homepage/homepage';
 import { ListPage } from '../pages/list/list';
-import { MapPage } from '../pages/map/map';
 import { LoginPage } from '../pages/login/login';
-import { GoogleMaps } from '@ionic-native/google-maps';
-
+import { MapPage } from '../pages/map/map';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { GoogleMaps } from '@ionic-native/google-maps';
 import { DeviceMotion } from '@ionic-native/device-motion';
 import { NativeAudio } from '@ionic-native/native-audio'
 import { Geolocation } from '@ionic-native/geolocation'
@@ -25,6 +25,7 @@ import { Facebook } from '@ionic-native/facebook';
 
 @NgModule({
   declarations: [
+    DashPage,
     Homepage,
     ListPage,
     LoginPage,
@@ -39,6 +40,7 @@ import { Facebook } from '@ionic-native/facebook';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
+    DashPage,
     Homepage,
     ListPage,
     LoginPage,
