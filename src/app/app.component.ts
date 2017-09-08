@@ -19,7 +19,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // make HelloIonicPage the root (or first) page
-  rootPage = Homepage;
+  rootPage = LoginPage;
   pages: Array<{title: string, component: any}>;
 
   constructor(
@@ -35,8 +35,7 @@ export class MyApp {
     this.pages = [
       { title: 'Dashboard', component: Homepage },
       { title: 'Greatest Hits', component: ListPage },
-      { title: 'Pothole Map', component: MapPage },
-      { title: 'Home', component: LoginPage }
+      { title: 'Pothole Map', component: MapPage }
     ];
   }
   menuClosed() {

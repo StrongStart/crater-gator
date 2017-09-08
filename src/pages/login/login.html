@@ -9,7 +9,7 @@
 <ion-content padding class="head">
   <h1>Welcome to Crater Gator</h1>
   <p>Saving your car (and wallet) from potholes!</p>
-  <img id="gator" src="/assets/logo.png" alt="gator">
+  <img id="gator" src="assets/logo.png" alt="gator">
   <br />
   <button ion-button center (click)="facebookLogin()">
     Log In with Facebook
@@ -22,8 +22,10 @@
         {{ userProfile.displayName }}
       </ion-card-title>
       <p>
-        Status: {{userProfile}}
-        <!-- The UID for this new user is {{userProfile.uid}} and the email is {{userProfile.email}} -->
+        Logged in to Facebook! {{userProfile.accessToken}}, {{userProfile.userID}}
+      </p>
+      <p>
+        {{userProfile.displayName}} {{userProfile.email}}
       </p>
     </ion-card-content>
   </ion-card>
