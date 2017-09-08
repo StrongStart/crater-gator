@@ -3,6 +3,7 @@ import { IonicPage, NavController } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { Http } from '@angular/http';
 import { Homepage} from '../homepage/homepage';
+import { RequestService } from '../../app/request.service';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -15,8 +16,12 @@ export class LoginPage {
   user: any = null;
   token: string = null;
   url: string ='https://graph.facebook.com/v2.5/me?fields=email,name,picture&access_token='
-  constructor(private http: Http, public navCtrl: NavController, private fb: Facebook) {
-  }
+  constructor(
+    private http: Http,
+    public navCtrl: NavController,
+    private fb: Facebook,
+    private requestService: RequestService
+  ){ }
   facebookLogin(): void {
     this.fb.login(['public_profile', 'email'])
       .then((response) => {
@@ -34,7 +39,12 @@ export class LoginPage {
     .toPromise()
     .then(response => {
       console.log(response.json());
-      //post to users
+      this.requestService.createUser({
+        token: this.token,
+        name: response.json().name
+      })
+        .then(data => console.log(data))
+        .catch(e => console.error(e));
     })
     .catch(e => console.log(e));
 

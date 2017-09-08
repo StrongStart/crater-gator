@@ -16,7 +16,7 @@ export class Impact {
 @Injectable()
 export class RequestService {
   private headers = new Headers({'Content-Type': 'application/json'});
-  private url = 'http://54.227.175.5/'
+  private url = 'http://cratergator.club/'
   constructor(private http: Http) { }
   createImpact(info: any): any {
     return this.http.post(`${this.url}impact`,
@@ -29,6 +29,12 @@ export class RequestService {
       JSON.stringify(info),
     {headers: this.headers}).toPromise()
     .then(res => res.json()).catch(this.handleError);
+  }
+  createUser(info: any): any {
+    return this.http.post(`${this.url}users`,
+    JSON.stringify(info),
+  { headers: this.headers}).toPromise()
+  .then(res => res.json()).catch(this.handleError);
   }
   getImpacts() {
     return this.http.get(`${this.url}impact`)

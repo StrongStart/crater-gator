@@ -8,8 +8,8 @@
 </ion-header>
 
 <ion-content>
-  <ion-list inset>
-      <ion-item text-wrap *ngFor="let impact of impacts">
+  <ion-list inset class="impactList">
+      <ion-item  class="impactItem" text-wrap *ngFor="let impact of impacts">
         You hit pothole #{{impact.pothole_id}} with a force of
         {{impact.force}} Gs on {{impact.date}}
       </ion-item>

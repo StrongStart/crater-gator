@@ -6,27 +6,18 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="head">
-  <h1>Welcome to Crater Gator</h1>
-  <p>Saving your car (and wallet) from potholes!</p>
-  <img id="gator" src="assets/logo.png" alt="gator">
-  <br />
-  <button ion-button center (click)="facebookLogin()">
-    Log In with Facebook
-  </button>
+<ion-content padding class="body">
+    <ion-card id="main">
+      <div id="greeting">
+        <h1>Welcome to Crater Gator</h1>
+        <p>Saving your car (and wallet) from potholes!</p>
+      </div>
+      <br />
+      <img id="gator" src="assets/images/logo.png" alt="gator">
+      <br />
+      <button ion-button center (click)="facebookLogin()">
+        Log In with Facebook
+      </button>
+    </ion-card>
 
-  <ion-card *ngIf="userProfile">
-    <img [src]="userProfile.photoURL"/>
-    <ion-card-content>
-      <ion-card-title>
-        {{ userProfile.displayName }}
-      </ion-card-title>
-      <p>
-        Logged in to Facebook! {{userProfile.accessToken}}, {{userProfile.userID}}
-      </p>
-      <p>
-        {{userProfile.displayName}} {{userProfile.email}}
-      </p>
-    </ion-card-content>
-  </ion-card>
 </ion-content>

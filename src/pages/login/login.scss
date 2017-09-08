@@ -1,8 +1,20 @@
 page-login {
 
-  .head {
-    text-align: center;
+  .body {
+    background-image: url('../assets/images/crater-gator-bg.png');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
   }
+
+  #main{
+    text-align: center;
+    background-color: transparent;
+  }
+  #greeting {
+    font-weight: bold;
+  }
+
   #gator {
     height: 300px;
   }
