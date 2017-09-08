@@ -28,7 +28,7 @@ export class ListPage {
 
     requestService.getImpacts()
     .then(hits => {
-      this.impacts = hits.map(e => {
+      this.impacts = hits.slice(0, 25).map(e => {
         e.date = e.date.slice(5, 7) + '-'+ e.date.slice(8, 10) + '-'+
         e.date.slice(0,4)
         e.force = e.force.reduce((a, c) => a + (c/9.8).toString().slice(0,3)+',', '')

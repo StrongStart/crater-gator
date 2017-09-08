@@ -25,8 +25,14 @@ export class LoginPage {
   facebookLogin(): void {
     this.fb.login(['public_profile', 'email'])
       .then((response) => {
-        this.saveUser(response);
-        this.redirectToDash();
+        this.requestService.getUser(response.authResponse.accessToken)
+        .then(data => {
+          if(!data) {
+            this.saveUser(response);
+          }
+          this.redirectToDash();
+        })
+        .catch(e => console.log(e));
       })
       .catch(e => this.user = `Error logging into Facebook ${e}`);
 
@@ -38,7 +44,6 @@ export class LoginPage {
     return this.http.get(this.url + this.token)
     .toPromise()
     .then(response => {
-      console.log(response.json());
       this.requestService.createUser({
         token: this.token,
         name: response.json().name

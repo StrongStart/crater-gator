@@ -1,23 +1,19 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Crater Gator Login
-    </ion-title>
-  </ion-navbar>
+  <ion-navbar></ion-navbar>
 </ion-header>
 
 <ion-content padding class="body">
-    <ion-card id="main">
+    <div id="main">
       <div id="greeting">
-        <h1>Welcome to Crater Gator</h1>
+        <h1 id="title">Welcome to Crater Gator</h1>
         <p>Saving your car (and wallet) from potholes!</p>
       </div>
       <br />
       <img id="gator" src="assets/images/logo.png" alt="gator">
       <br />
-      <button ion-button center (click)="facebookLogin()">
+      <button ion-button center class="signin" (click)="facebookLogin()">
         Log In with Facebook
       </button>
-    </ion-card>
+    </div>
 
 </ion-content>

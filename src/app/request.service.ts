@@ -36,6 +36,12 @@ export class RequestService {
   { headers: this.headers}).toPromise()
   .then(res => res.json()).catch(this.handleError);
   }
+  getUser(userToken: string): any {
+    return this.http.get(`${this.url}users?token=${userToken}`)
+      .toPromise()
+      .then(res => res.json())
+      .catch(this.handleError);
+  }
   getImpacts() {
     return this.http.get(`${this.url}impact`)
       .toPromise()
