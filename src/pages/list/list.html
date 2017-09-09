@@ -12,6 +12,7 @@
       <ion-item  class="impactItem" text-wrap *ngFor="let impact of impacts">
         You hit pothole #{{impact.pothole_id}} with a force of
         {{impact.force}} Gs on {{impact.date}}
+        <br />
         <button ion-button (click)="postToFb(impact)">
           Share!
         </button>

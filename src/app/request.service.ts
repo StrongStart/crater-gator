@@ -18,30 +18,30 @@ export class RequestService {
   private headers = new Headers({'Content-Type': 'application/json'});
   private url = 'http://cratergator.club/'
   constructor(private http: Http) { }
+
+  // post requests
   createImpact(info: any): any {
     return this.http.post(`${this.url}impact`,
       JSON.stringify(info),
     {headers: this.headers}).toPromise()
     .then(res => res.json()).catch(this.handleError);
   }
+
   createPothole(info: any): any {
     return this.http.post(`${this.url}pothole`,
       JSON.stringify(info),
     {headers: this.headers}).toPromise()
     .then(res => res.json()).catch(this.handleError);
   }
+
   createUser(info: any): any {
     return this.http.post(`${this.url}users`,
     JSON.stringify(info),
   { headers: this.headers}).toPromise()
   .then(res => res.json()).catch(this.handleError);
   }
-  getUser(userToken: string): any {
-    return this.http.get(`${this.url}users?token=${userToken}`)
-      .toPromise()
-      .then(res => res.json())
-      .catch(this.handleError);
-  }
+
+  //get all requests
   getImpacts() {
     return this.http.get(`${this.url}impact`)
       .toPromise()
@@ -54,12 +54,30 @@ export class RequestService {
       .then(response => response.json() as Pothole[])
       .catch(this.handleError)
   }
-  getPothole(lat, lng) {
-    return this.http.get(`${this.url}pothole?lat=${lat}&&lng=${lng}`)
-    .toPromise()
-    .then(res => res.json().data as Pothole)
-    .catch(this.handleError);
+
+  //get one requests
+  getUser(userToken: string): any {
+    return this.http.get(`${this.url}users?token=${userToken}`)
+      .toPromise()
+      .then(res => res.json())
+      .catch(this.handleError);
   }
+
+  getPotholeByLocation(lat, lng) {
+    return this.http.get(`${this.url}pothole?lat=${lat}&&lng=${lng}`)
+      .toPromise()
+      .then(res => res.json().data as Pothole)
+      .catch(this.handleError);
+  }
+
+  getPotholeById(id: string) {
+    return this.http.get(`${this.url}pothole?id=${id}`)
+      .toPromise()
+      .then(res => res.json()[0] as Pothole)
+      .catch(this.handleError);
+  }
+
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
