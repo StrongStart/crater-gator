@@ -25,8 +25,10 @@ export class LoginPage {
   facebookLogin(): void {
     this.fb.login(['public_profile', 'email'])
       .then((response) => {
+        console.log('line 28', response)
         this.requestService.getUser(response.authResponse.accessToken)
         .then(data => {
+          console.log('line 30', data);
           if(!data) {
             this.saveUser(response);
           }
