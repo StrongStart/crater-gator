@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { RequestService } from '../../app/request.service'
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 @Component({
   selector: 'page-list',
@@ -20,6 +21,7 @@ export class ListPage {
     public navParams: NavParams,
     platform:Platform,
     requestService: RequestService,
+    private socialSharing: SocialSharing
   ) {
     requestService.getPotholes()
     .then(values => {
@@ -36,5 +38,11 @@ export class ListPage {
         return e
       })
     })
+  }
+  postToFb(info: any): any {
+    let message = `I hit a pothole on ${info.date} that had a force of ${info.force} g's! Where yat Mitch??`
+    this.socialSharing.share(message, null, 'http://cratergator.club')
+    .then(data => console.log('posted', data))
+    .catch(e => console.error(e));
   }
 }
