@@ -1,6 +1,6 @@
 # Crater Gator
 
-![header](images/header.png)
+![header](images/head.png)
 > Save your car (and wallet) from New Orleans roads.
 
 ## Team
