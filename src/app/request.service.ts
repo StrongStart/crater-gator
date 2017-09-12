@@ -1,6 +1,7 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http } from '@angular/http';
 
+
 import 'rxjs/add/operator/toPromise';
 
 export class Pothole {
@@ -37,8 +38,9 @@ export class RequestService {
   createUser(info: any): any {
     return this.http.post(`${this.url}users`,
     JSON.stringify(info),
-  { headers: this.headers}).toPromise()
-  .then(res => res.json()).catch(this.handleError);
+    { headers: this.headers }).toPromise()
+    .then(res => res.json())
+    .catch(this.handleError);
   }
 
   //get all requests
@@ -59,7 +61,9 @@ export class RequestService {
   getUser(userToken: string): any {
     return this.http.get(`${this.url}users?token=${userToken}`)
       .toPromise()
-      .then(res => res.json())
+      .then(res => {
+        res.json()
+      })
       .catch(this.handleError);
   }
 

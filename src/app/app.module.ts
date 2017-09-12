@@ -24,6 +24,8 @@ import { TextToSpeech } from '@ionic-native/text-to-speech'
 import { Facebook } from '@ionic-native/facebook';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
+import { NativeStorage } from '@ionic-native/native-storage';
+
 
 @NgModule({
   declarations: [
@@ -56,6 +58,7 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder';
     GoogleMaps,
     NativeAudio,
     NativeGeocoder,
+    NativeStorage,
     TextToSpeech,
     RequestService,
     SmartAudio,

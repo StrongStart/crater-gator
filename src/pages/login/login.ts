@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
-import { Facebook } from '@ionic-native/facebook';
 import { Http } from '@angular/http';
+
 import { DashPage} from '../dash/dash';
 import { RequestService } from '../../app/request.service';
+
+import { Facebook } from '@ionic-native/facebook';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -20,41 +23,46 @@ export class LoginPage {
     private http: Http,
     public navCtrl: NavController,
     private fb: Facebook,
-    private requestService: RequestService
-  ){ }
+    private requestService: RequestService,
+    private nativeStorage: NativeStorage
+  ){
+    //check native storage for JWT
+    this.nativeStorage.getItem('user')
+      .then(data => {
+        if (data) {
+          console.log(data);
+          //if validated
+            //get username
+            this.redirectToDash();
+        }
+      })
+      .catch(error => console.error(error));
+  }
   facebookLogin(): void {
     this.fb.login(['public_profile', 'email'])
       .then((response) => {
-        console.log('line 28', response)
-        this.requestService.getUser(response.authResponse.accessToken)
-        .then(data => {
-          console.log('line 30', data);
-          if(!data) {
-            this.saveUser(response);
-          }
-          this.redirectToDash();
-        })
-        .catch(e => console.log(e));
+        this.token = response.authResponse.accessToken;
+        return this.http.get(this.url + this.token)
+          .toPromise()
+          .then(fbResponse => {
+            if (fbResponse.ok) {
+              this.saveUser(fbResponse)
+            }
+          })
       })
       .catch(e => this.user = `Error logging into Facebook ${e}`);
 
   }
   saveUser(res: any) {
-    this.user = res.authResponse;
-    this.token = this.user.accessToken;
-    console.log(res);
-    return this.http.get(this.url + this.token)
-    .toPromise()
-    .then(response => {
       this.requestService.createUser({
         token: this.token,
-        name: response.json().name
+        name: res.json().name
       })
-        .then(data => console.log(data))
-        .catch(e => console.error(e));
-    })
-    .catch(e => console.log(e));
-
+      .then(data => {
+        this.nativeStorage.setItem('user', { id: data.id, name: data.name, token: data.token })
+        this.redirectToDash();
+      })
+      .catch(e => console.error(e));
   }
 
   redirectToDash(): void {
