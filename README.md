@@ -1,5 +1,6 @@
 # Crater Gator
 
+![header](images/head.png)
 > Save your car (and wallet) from New Orleans roads.
 
 ## Team
@@ -19,21 +20,21 @@
 1. [Contributing](#contributing)
 
 ## About
- 
- 
+
+
 ## Usage
 
 1. NPM Install
 2. NPM Start to run locally
 
 ## Wireframe
-![Wireframe](wireframe.png)
+![Wireframe](images/wireframe.png)
 
 ## Tech Stack
-![Tech Stack](techstack.png)
+![Tech Stack](images/techstack.png)
 
 ## Schema
-![Schema](schema.png)
+![Schema](images/schema.png)
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.

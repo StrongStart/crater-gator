@@ -7,11 +7,15 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list inset>
-      <ion-item text-wrap *ngFor="let impact of impacts">
+<ion-content class="body">
+  <ion-list inset class="impactList">
+      <ion-item  class="impactItem" text-wrap *ngFor="let impact of impacts">
         You hit pothole #{{impact.pothole_id}} with a force of
         {{impact.force}} Gs on {{impact.date}}
+        <br />
+        <button ion-button (click)="postToFb(impact)" round>
+          Share!
+        </button>
       </ion-item>
   </ion-list>
 </ion-content>

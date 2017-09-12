@@ -23,7 +23,7 @@ export class MapPage {
     events.subscribe('menu:closed', () => this.map.setClickable(true))
   }
   ionViewDidEnter(){
-    this.platform.ready().then(() => this.loadMap())
+    this.platform.ready().then(() => this.loadMap());
   }
   loadMap() {
     this.mapLoaded = true;
@@ -35,6 +35,7 @@ export class MapPage {
       }
     this.map = this.googleMaps.create(this.mapElement, mapOptions);
     this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+      this.map.set('backgroundColor', 'pink');
       this.requestService.getPotholes().then(values => {
         values.forEach(ph => {
           this.map.addMarker({

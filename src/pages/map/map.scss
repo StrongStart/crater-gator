@@ -1,8 +1,19 @@
 
-.nav-decor{
-  background-color: transparent !important;
-  display: none;
+// .nav-decor{
+//   background-color: transparent !important;
+//   display: none;
+// }
+.body {
+  background: #160F29;
+  background: -webkit-linear-gradient(#160F29, #246A73);
+  background: -o-linear-gradient(#160F29, #246A73);
+  background: -moz-linear-gradient(#160F29, #246A73);
+  background: linear-gradient(#160F29, #246A73);
 }
-.before{
-  color: blue;
+// .before{
+//   color: blue;
+// }
+
+#map {
+  height: 100%;
 }

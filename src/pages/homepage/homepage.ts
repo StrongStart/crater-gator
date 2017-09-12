@@ -5,6 +5,7 @@ import { RequestService } from '../../app/request.service'
 import { SmartAudio } from '../../providers/smart-audio/smart-audio'
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { Geolocation } from '@ionic-native/geolocation';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @IonicPage()
 @Component({
@@ -26,9 +27,10 @@ export class Homepage {
   constructor(private geolocation: Geolocation,
     private tts: TextToSpeech,
     private requestService: RequestService,
-    public smartAudio:SmartAudio,
-    public platform:Platform,
-    private deviceMotion:DeviceMotion) {}
+    public smartAudio: SmartAudio,
+    public platform: Platform,
+    private nativeStorage: NativeStorage,
+    private deviceMotion: DeviceMotion) {}
   ionViewDidEnter(){
     this.platform.ready().then(() => {
       // smartAudio.preload('sound', 'assets/sounds/beep15.mp3')
@@ -84,7 +86,7 @@ export class Homepage {
     longitude = round(longitude, 4)
     jolts = jolts.map(j => Math.floor(j))
     this.toSave = [latitude, longitude, jolts]
-    this.requestService.getPothole(latitude, longitude)
+    this.requestService.getPotholeByLocation(latitude, longitude)
     .then(data => {
       if (!data) {
         this.requestService.createPothole({
@@ -94,18 +96,24 @@ export class Homepage {
         })
         .then(hole => {
           console.log(103)
-          this.requestService.createImpact({
-            force: jolts,
-            users_id: null,
-            pothole_id: hole.id
-          }).then(impact => console.log(impact, 108))
+          this.nativeStorage.getItem('user')
+            .then(user => {
+              this.requestService.createImpact({
+                force: jolts,
+                users_id: user.id,
+                pothole_id: hole.id
+              }).then(impact => console.log(impact, 108))
+            })
         })
       } else {
-        this.requestService.createImpact({
-          force: jolts,
-          users_id: null,
-          pothole_id: data[0].id
-        }).then(impact => console.log(impact, 'impact saved'))
+        this.nativeStorage.getItem('user')
+          .then(user => {
+            this.requestService.createImpact({
+              force: jolts,
+              users_id: user.id,
+              pothole_id: data[0].id
+            }).then(impact => console.log(impact, 'impact saved'))
+          })
       }
     })
   }
@@ -163,6 +171,9 @@ export class Homepage {
   speak(ar) {
     let roundedInGs = ar.map(n => Math.floor(n/9.8))
     let str = roundedInGs.reduce((a, c) => `${a} ${c.toString()} gees,`, '')
-    this.tts.speak(`That impact was ${str}`)
+    this.tts.speak({
+      text: `That impact was ${str}`,
+      locale: 'en-AU'
+    })
   }
 }
