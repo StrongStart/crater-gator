@@ -5,6 +5,7 @@ import { RequestService } from '../../app/request.service'
 import { SmartAudio } from '../../providers/smart-audio/smart-audio'
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { Geolocation } from '@ionic-native/geolocation';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @IonicPage()
 @Component({
@@ -26,9 +27,10 @@ export class Homepage {
   constructor(private geolocation: Geolocation,
     private tts: TextToSpeech,
     private requestService: RequestService,
-    public smartAudio:SmartAudio,
-    public platform:Platform,
-    private deviceMotion:DeviceMotion) {}
+    public smartAudio: SmartAudio,
+    public platform: Platform,
+    private nativeStorage: NativeStorage,
+    private deviceMotion: DeviceMotion) {}
   ionViewDidEnter(){
     this.platform.ready().then(() => {
       // smartAudio.preload('sound', 'assets/sounds/beep15.mp3')
@@ -94,18 +96,24 @@ export class Homepage {
         })
         .then(hole => {
           console.log(103)
-          this.requestService.createImpact({
-            force: jolts,
-            users_id: null,
-            pothole_id: hole.id
-          }).then(impact => console.log(impact, 108))
+          this.nativeStorage.getItem('user')
+            .then(user => {
+              this.requestService.createImpact({
+                force: jolts,
+                users_id: user.id,
+                pothole_id: hole.id
+              }).then(impact => console.log(impact, 108))
+            })
         })
       } else {
-        this.requestService.createImpact({
-          force: jolts,
-          users_id: null,
-          pothole_id: data[0].id
-        }).then(impact => console.log(impact, 'impact saved'))
+        this.nativeStorage.getItem('user')
+          .then(user => {
+            this.requestService.createImpact({
+              force: jolts,
+              users_id: user.id,
+              pothole_id: data[0].id
+            }).then(impact => console.log(impact, 'impact saved'))
+          })
       }
     })
   }

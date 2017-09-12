@@ -1,5 +1,6 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http } from '@angular/http';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 
 import 'rxjs/add/operator/toPromise';
@@ -13,12 +14,13 @@ export class Impact {
   date: Date
   force: Array<number>
   pothole_id: Number
+  user_id: Number
 }
 @Injectable()
 export class RequestService {
   private headers = new Headers({'Content-Type': 'application/json'});
   private url = 'http://cratergator.club/'
-  constructor(private http: Http) { }
+  constructor(private http: Http, private nativeStorage: NativeStorage) { }
 
   // post requests
   createImpact(info: any): any {
@@ -45,10 +47,13 @@ export class RequestService {
 
   //get all requests
   getImpacts() {
-    return this.http.get(`${this.url}impact`)
-      .toPromise()
-      .then(response => response.json().slice(0, 25) as Impact[])
-      .catch(this.handleError)
+    return this.nativeStorage.getItem('user')
+      .then(user => {
+        return this.http.get(`${this.url}impact?users_id=${user.id}`)
+          .toPromise()
+          .then(response => response.json() as Impact[])
+          .catch(this.handleError)
+      })
   }
   getPotholes() {
     return this.http.get(`${this.url}pothole`)

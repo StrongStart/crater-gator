@@ -26,14 +26,11 @@ export class LoginPage {
     private requestService: RequestService,
     private nativeStorage: NativeStorage
   ){
-    //check native storage for JWT
     this.nativeStorage.getItem('user')
       .then(data => {
         if (data) {
           console.log(data);
-          //if validated
-            //get username
-            this.redirectToDash();
+          this.redirectToDash();
         }
       })
       .catch(error => console.error(error));
