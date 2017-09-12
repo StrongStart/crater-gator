@@ -42,7 +42,7 @@ export class ListPage {
   }
 
   sendMessage(i: any) {
-    let message = `I hit the ${this.name} on ${i.date} at ${this.num} ${this.street}. It had a force of ${i.force} g's! Where yat Mitch??`
+    let message = `I hit the ${this.name} on ${i.date} at ${this.num} ${this.street}. It had a force of ${i.force} g's! @MayorLandrieu`
       this.socialSharing.share(message, null, null)
   }
 
