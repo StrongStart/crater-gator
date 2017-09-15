@@ -26,6 +26,7 @@ import { RequestService } from './request.service';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 
+import { Dropbox } from '../providers/dropbox/dropbox';
 import { CloudinaryModule } from '@cloudinary/angular-4.x';
 import * as Cloudinary from 'cloudinary-core';
 
@@ -57,6 +58,7 @@ import * as Cloudinary from 'cloudinary-core';
   providers: [
     Camera,
     DeviceMotion,
+    Dropbox,
     Facebook,
     Geolocation,
     GoogleMaps,

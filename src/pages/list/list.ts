@@ -64,8 +64,6 @@ export class ListPage {
         });
       });
   }
-  // You hit {{pothole.name}} at {{pothole.num}} {{pothole.street}} with a force of
-  // {{pothole.force}} Gs on {{pothole.date}}
   postToFb(p: any): any {
     const message = `There's a huge pothole named ${p.name} at ${p.num}` +
     `${p.street}! @MayorLandrieu`;
