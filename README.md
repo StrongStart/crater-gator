@@ -40,8 +40,8 @@ Want to see all the potholes in the city? Check out the Pothole Map for a bird's
 
 ## Schema
 ![Schema](images/schema.png)
-## Contributing
 
+## Contributing
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 

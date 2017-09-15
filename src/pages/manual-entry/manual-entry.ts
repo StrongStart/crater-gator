@@ -6,6 +6,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { NativeStorage } from '@ionic-native/native-storage';
 
+import { Dropbox } from '../../providers/dropbox/dropbox';
 
 @IonicPage()
 @Component({
@@ -22,7 +23,6 @@ export class ManualEntryPage {
     quality: 100,
     destinationType: this.camera.DestinationType.FILE_URI,
     encodingType: this.camera.EncodingType.JPEG,
-    // mediaType: this.camera.MediaType.PICTURE,
     targetHeight: 320,
     targetWidth: 320,
     saveToPhotoAlbum: true,
@@ -36,20 +36,25 @@ export class ManualEntryPage {
     private requestService: RequestService,
     private nativeStorage: NativeStorage,
     private camera: Camera,
+    public dropbox: Dropbox,
     public navParams: NavParams) {
 
-    this.geolocation.getCurrentPosition().then((resp) => {
-      const round = (t, d) => Number(Math.round(Number(t + 'e' + d)) + 'e-' + d);
-      this.lat = round(resp.coords.latitude, 4);
-      this.lng = round(resp.coords.longitude, 4);
-      this.nativeGeocoder.reverseGeocode(this.lat, this.lng)
-        .then(res => this.location = `${res.subThoroughfare} ${res.thoroughfare}`);
-    }).catch(error => console.log('Error getting location', error));
+      this.geolocation.getCurrentPosition().then((resp) => {
+        const round = (t, d) => Number(Math.round(Number(t+'e'+d))+'e-'+d);
+        this.lat = round(resp.coords.latitude, 4);
+        this.lng = round(resp.coords.longitude, 4);
+        this.nativeGeocoder.reverseGeocode(this.lat, this.lng)
+          .then(res => this.location = `${res.subThoroughfare} ${res.thoroughfare}`)
+      }).catch((error) => console.log('Error getting location', error));
   }
 
   takePicture() {
+    // this.dropbox.savePhoto('https://media.myfoxmemphiscom.cmgdigital.com/photo/2017/01/16/gator_20170116171341601_7057460_ver1.0_1280_720.jpg');
     this.camera.getPicture(this.options)
-      .then(data => this.image = data)
+      .then(data => {
+        this.image = data
+        // this.dropbox.savePhoto(this.image);
+      })
       .catch(e => console.error(e));
   }
 
