@@ -1,9 +1,9 @@
 # Crater Gator
 
 ![header](images/head.png)
-> Save your car (and wallet) from New Orleans roads.
-> Download for Android [here] (https://play.google.com/apps/testing/club.cratergator)
-
+- Save your car (and wallet) from New Orleans roads.
+- Download for Android [here] (https://play.google.com/apps/testing/club.cratergator)
+- See the demo video www.cratergator.club
 ## Team
 
   - __Product Owner__: Marina McGrath
