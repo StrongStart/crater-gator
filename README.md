@@ -2,7 +2,7 @@
 
 ![header](images/head.png)
 - Save your car (and wallet) from New Orleans roads.
-- [Download for Android] (https://play.google.com/apps/testing/club.cratergator)
+- Download for Android https://play.google.com/apps/testing/club.cratergator
 - See the demo video www.cratergator.club
 ## Team
 
